@@ -1,0 +1,9 @@
+This is a placeholder for the Room Details screenshot.
+The actual screenshot would show:
+- Back button and room name in app bar
+- List of device control cards
+- Each device shows name, icon, toggle switch
+- Active devices show intensity sliders
+- Percentage indicators for brightness/speed
+- "Turn All On/Off" button at bottom
+- Smooth animations and Material Design styling

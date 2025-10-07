@@ -6,31 +6,57 @@ Complete guide to all available documentation for the SereneSync smart home auto
 
 ## 📖 Documentation Overview
 
-This project includes **11 comprehensive documentation files** totaling over **70KB** of guides, specifications, and references.
+This project includes **14 comprehensive documentation files** plus **4 automated setup scripts** for the easiest possible setup experience.
 
 ---
 
 ## 🚀 Getting Started
 
-### For New Users
+### 🎯 For New Users - Start Here!
 
-**Start Here:**
+**⭐ Recommended Path:**
 
-1. **[README.md](README.md)** - Project overview and introduction
+1. **[GET_STARTED.md](GET_STARTED.md)** - **START HERE!** ⭐
+   - 3-step setup guide (5 minutes)
+   - Beginner-friendly instructions
+   - Progress checklist
+   - Quick troubleshooting
+   - Perfect for first-timers
+
+2. **[SETUP.md](SETUP.md)** - Comprehensive setup guide
+   - Detailed setup instructions
+   - Platform-specific guides
+   - Development environment setup
+   - Extensive troubleshooting
+   - Perfect for detailed setup needs
+
+3. **[QUICKSTART.md](QUICKSTART.md)** - Fast setup for experienced users
+   - Quick installation steps
+   - Platform-specific commands
+   - Testing features
+   - Customization options
+   - Perfect for Flutter developers
+
+4. **[README.md](README.md)** - Project overview (now with screenshots!)
    - What is SereneSync?
-   - Key features
-   - Installation instructions
-   - Basic usage guide
-   - Dependencies list
+   - Feature showcase with images
+   - One-command setup
+   - Quick reference
+   - Usage guide
 
-2. **[QUICKSTART.md](QUICKSTART.md)** - Get running in 5 minutes
-   - Step-by-step setup
-   - Platform-specific instructions
-   - First-time usage guide
-   - Troubleshooting common issues
-   - Pro tips
+5. **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** ⭐ **PRINT THIS!**
+   - One-page reference card
+   - All commands in one place
+   - Quick troubleshooting
+   - Platform-specific commands
+   - Perfect for keeping handy
 
-**Perfect for:** First-time users, people evaluating the project
+**Choose based on your experience:**
+- 🆕 **New to Flutter?** → [GET_STARTED.md](GET_STARTED.md)
+- 💻 **Experienced developer?** → [QUICKSTART.md](QUICKSTART.md)
+- 🔧 **Need detailed help?** → [SETUP.md](SETUP.md)
+- 📖 **Just browsing?** → [README.md](README.md)
+- 📋 **Need quick ref?** → [QUICK_REFERENCE.md](QUICK_REFERENCE.md)
 
 ---
 
@@ -417,8 +443,9 @@ Found something unclear or missing?
 
 **Last Updated**: 2024  
 **Documentation Version**: 1.0.0  
-**Total Documentation**: 11 files, 75.0 KB  
-**Status**: ✅ Complete
+**Total Documentation**: 14 files (added setup automation)
+**Setup Scripts**: 4 automated scripts
+**Status**: ✅ Complete and Easy to Use
 
 ---
 

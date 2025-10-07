@@ -1,0 +1,9 @@
+This is a placeholder for the Settings screenshot.
+The actual screenshot would show:
+- Settings app bar with back button
+- ESP32 Configuration card with URL input field
+- Test and Save buttons side by side
+- Connection status indicator (green for success)
+- About section with version info
+- Sync with ESP32 option
+- Clean, organized settings layout

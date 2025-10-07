@@ -13,12 +13,43 @@ Before you begin, ensure you have:
 
 ## 🚀 5-Minute Setup
 
-### Step 1: Clone and Setup
+### ⚡ Super Quick Start (Recommended)
+
+**One-command setup:**
 
 ```bash
 # Clone the repository
-git clone https://github.com/navuxneeth/sidegig-thing.git
-cd sidegig-thing
+git clone https://github.com/navuxneeth/SereneSync.git
+cd SereneSync
+
+# Run automated setup script
+./scripts/setup.sh
+
+# Run the app
+flutter run -d chrome
+```
+
+**That's it!** The setup script handles everything automatically.
+
+### 📝 What the Setup Script Does
+
+- ✅ Checks Flutter installation
+- ✅ Verifies Flutter version (3.0.0+)
+- ✅ Runs Flutter doctor
+- ✅ Cleans previous builds
+- ✅ Installs all dependencies
+- ✅ Runs code analysis
+- ✅ Checks for available devices
+- ✅ Shows you next steps
+
+### 🛠️ Manual Setup (If Needed)
+
+**Step 1: Clone and Setup**
+
+```bash
+# Clone the repository
+git clone https://github.com/navuxneeth/SereneSync.git
+cd SereneSync
 
 # Install dependencies
 flutter pub get
@@ -27,7 +58,12 @@ flutter pub get
 flutter doctor
 ```
 
-### Step 2: Run the App
+**Step 2: Run the App**
+
+**On Chrome (Recommended for testing):**
+```bash
+flutter run -d chrome
+```
 
 **On Android Device/Emulator:**
 ```bash
@@ -37,11 +73,6 @@ flutter run
 **On iOS Simulator:**
 ```bash
 flutter run -d "iPhone 14"
-```
-
-**On Chrome (Web):**
-```bash
-flutter run -d chrome
 ```
 
 That's it! The app will launch with sample data pre-loaded.
@@ -191,16 +222,30 @@ theme: ThemeData(
 
 ## 🐛 Troubleshooting
 
+### 🔧 Quick Diagnostic
+
+**Run our verification script:**
+```bash
+./scripts/verify-setup.sh
+```
+
+This will check your entire setup and identify issues.
+
 ### "Flutter not found"
 ```bash
 # Add Flutter to PATH
 export PATH="$PATH:`pwd`/flutter/bin"
+
+# Or install Flutter: https://docs.flutter.dev/get-started/install
 ```
 
 ### "No devices found"
 ```bash
 # Check connected devices
 flutter devices
+
+# Easiest: Use Chrome
+flutter run -d chrome
 
 # For Android emulator
 emulator -avd Pixel_6_API_33
@@ -224,6 +269,12 @@ flutter pub get
 flutter run
 ```
 
+### "Permission denied" on scripts
+```bash
+# Make scripts executable
+chmod +x scripts/*.sh
+```
+
 ### ESP32 Connection Issues
 
 **Cannot connect to ESP32:**
@@ -242,27 +293,33 @@ flutter run
 ## 📚 Next Steps
 
 ### For Users
-- Read the [README.md](README.md) for full feature list
-- Check [ESP32_API_SPEC.md](ESP32_API_SPEC.md) for hardware setup
-- Explore the Settings screen for configuration options
+- ✅ Read the [SETUP.md](SETUP.md) for comprehensive setup guide
+- ✅ Read the [README.md](README.md) for full feature list
+- ✅ Check [ESP32_API_SPEC.md](ESP32_API_SPEC.md) for hardware setup
+- ✅ Explore the Settings screen for configuration options
 
 ### For Developers
-- Read [ARCHITECTURE.md](ARCHITECTURE.md) to understand code structure
-- Check `test/widget_test.dart` for testing examples
-- Explore the codebase starting from `lib/main.dart`
+- ✅ Run `./scripts/dev-setup.sh` for development environment
+- ✅ Read [ARCHITECTURE.md](ARCHITECTURE.md) to understand code structure
+- ✅ Check [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
+- ✅ Check `test/widget_test.dart` for testing examples
+- ✅ Explore the codebase starting from `lib/main.dart`
 
 ### For ESP32 Setup
-- See [ESP32_API_SPEC.md](ESP32_API_SPEC.md) for required endpoints
-- Implement the REST API on your ESP32
-- Test each endpoint with curl/Postman first
+- ✅ See [ESP32_API_SPEC.md](ESP32_API_SPEC.md) for required endpoints
+- ✅ Implement the REST API on your ESP32
+- ✅ Test each endpoint with curl/Postman first
+- ✅ Use the app's Settings screen to configure connection
 
 ## 💡 Pro Tips
 
-1. **Use Hot Reload**: Press `r` in terminal while app is running to instantly see changes
-2. **Use Hot Restart**: Press `R` for full restart
-3. **Debug with Chrome**: Best for UI development and debugging
-4. **Check Console**: Watch for ESP32 connection logs
-5. **Sample Data**: Useful for development without hardware
+1. **Use Automated Setup**: `./scripts/setup.sh` - handles everything for you
+2. **Verify Setup**: `./scripts/verify-setup.sh` - checks your configuration
+3. **Use Hot Reload**: Press `r` in terminal while app is running to instantly see changes
+4. **Use Hot Restart**: Press `R` for full restart
+5. **Debug with Chrome**: Best for UI development and debugging - `flutter run -d chrome`
+6. **Check Console**: Watch for ESP32 connection logs
+7. **Sample Data**: App works perfectly without hardware - useful for demos and development
 
 ## 🎯 Common Use Cases
 
