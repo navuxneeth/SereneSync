@@ -60,7 +60,7 @@ class DeviceControl extends StatelessWidget {
                 Switch(
                   value: device.isOn,
                   onChanged: onToggle,
-                  activeColor: Colors.blue,
+                  activeThumbColor: Colors.blue,
                 ),
               ],
             ),
