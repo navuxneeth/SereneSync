@@ -195,6 +195,8 @@ flutter run
 
 **Need more help?** See our detailed [SETUP.md](SETUP.md) guide.
 
+**Want a quick reference?** Check [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - printable cheat sheet!
+
 ### ESP32 Setup
 
 The app expects the ESP32 to provide the following HTTP endpoints:

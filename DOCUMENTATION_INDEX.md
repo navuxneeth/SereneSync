@@ -44,11 +44,19 @@ This project includes **14 comprehensive documentation files** plus **4 automate
    - Quick reference
    - Usage guide
 
+5. **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** ⭐ **PRINT THIS!**
+   - One-page reference card
+   - All commands in one place
+   - Quick troubleshooting
+   - Platform-specific commands
+   - Perfect for keeping handy
+
 **Choose based on your experience:**
 - 🆕 **New to Flutter?** → [GET_STARTED.md](GET_STARTED.md)
 - 💻 **Experienced developer?** → [QUICKSTART.md](QUICKSTART.md)
 - 🔧 **Need detailed help?** → [SETUP.md](SETUP.md)
 - 📖 **Just browsing?** → [README.md](README.md)
+- 📋 **Need quick ref?** → [QUICK_REFERENCE.md](QUICK_REFERENCE.md)
 
 ---
 

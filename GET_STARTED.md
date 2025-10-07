@@ -207,4 +207,6 @@ Then read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 **Happy building!** 🏠✨
 
+**💡 Tip:** Print [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for a handy cheat sheet!
+
 If you get stuck, don't hesitate to [open an issue](https://github.com/navuxneeth/SereneSync/issues).

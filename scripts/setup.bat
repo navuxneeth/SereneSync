@@ -82,5 +82,6 @@ echo Need help? Check out:
 echo   - README.md - Overview and features
 echo   - QUICKSTART.md - Quick start guide
 echo   - SETUP.md - Detailed setup instructions
+echo   - QUICK_REFERENCE.md - Handy command reference
 echo.
 pause
