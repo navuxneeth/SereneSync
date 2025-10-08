@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/data_service.dart';
+import '../services/theme_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -215,6 +217,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             child: Column(
               children: [
+                Consumer<ThemeService>(
+                  builder: (context, themeService, child) {
+                    return SwitchListTile(
+                      secondary: Icon(
+                        themeService.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                      ),
+                      title: const Text('Dark Mode'),
+                      subtitle: Text(
+                        themeService.isDarkMode ? 'Dark theme enabled' : 'Light theme enabled',
+                      ),
+                      value: themeService.isDarkMode,
+                      onChanged: (value) {
+                        themeService.toggleTheme();
+                      },
+                    );
+                  },
+                ),
+                const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.info_outline),
                   title: const Text('About'),
@@ -243,6 +263,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: 24),
+          _buildFooter(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooter(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          const Divider(),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Made by ',
+                style: TextStyle(fontSize: 12),
+              ),
+              InkWell(
+                onTap: () async {
+                  final url = Uri.parse('https://www.linkedin.com/in/navaneeth-sankar-k-p');
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  }
+                },
+                child: const Text(
+                  'Navaneeth Sankar K P',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
