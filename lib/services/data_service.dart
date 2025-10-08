@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import '../models/room.dart';
 import '../models/device.dart';
 import '../models/appliance_type.dart';
@@ -11,102 +13,108 @@ class DataService extends ChangeNotifier {
   List<Device> _devices = [];
   bool _isLoading = false;
   String? _error;
+  bool _isSetupComplete = false;
 
   List<Room> get rooms => _rooms;
   List<Device> get devices => _devices;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  bool get isSetupComplete => _isSetupComplete;
   ESP32Service get esp32Service => _esp32Service;
 
   DataService() {
-    _initializeSampleData();
+    _loadData();
   }
 
-  // Initialize with sample data for demonstration
-  void _initializeSampleData() {
-    _rooms = [
-      Room(id: '1', name: 'Living Room', icon: '🛋️'),
-      Room(id: '2', name: 'Bedroom', icon: '🛏️'),
-      Room(id: '3', name: 'Kitchen', icon: '🍳'),
-      Room(id: '4', name: 'Bathroom', icon: '🚿'),
-    ];
+  // Load data from SharedPreferences
+  Future<void> _loadData() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _isSetupComplete = prefs.getBool('setup_complete') ?? false;
+      
+      final roomsJson = prefs.getString('rooms');
+      if (roomsJson != null) {
+        final List<dynamic> roomsList = json.decode(roomsJson);
+        _rooms = roomsList.map((json) => Room.fromJson(json)).toList();
+      }
+      
+      final devicesJson = prefs.getString('devices');
+      if (devicesJson != null) {
+        final List<dynamic> devicesList = json.decode(devicesJson);
+        _devices = devicesList.map((json) => Device.fromJson(json)).toList();
+      }
+      
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error loading data: $e');
+    }
+  }
 
-    _devices = [
-      // Living Room
-      Device(
-        id: 'lr_light_1',
-        name: 'Ceiling Light',
-        type: ApplianceType.light,
-        roomId: '1',
-        isOn: false,
-        intensity: 80,
-      ),
-      Device(
-        id: 'lr_fan_1',
-        name: 'Ceiling Fan',
-        type: ApplianceType.fan,
-        roomId: '1',
-        isOn: false,
-        intensity: 60,
-      ),
-      Device(
-        id: 'lr_socket_1',
-        name: 'TV Socket',
-        type: ApplianceType.socket,
-        roomId: '1',
-        isOn: false,
-      ),
-      // Bedroom
-      Device(
-        id: 'br_light_1',
-        name: 'Main Light',
-        type: ApplianceType.light,
-        roomId: '2',
-        isOn: false,
-        intensity: 70,
-      ),
-      Device(
-        id: 'br_light_2',
-        name: 'Bedside Lamp',
-        type: ApplianceType.light,
-        roomId: '2',
-        isOn: false,
-        intensity: 40,
-      ),
-      Device(
-        id: 'br_fan_1',
-        name: 'Ceiling Fan',
-        type: ApplianceType.fan,
-        roomId: '2',
-        isOn: false,
-        intensity: 50,
-      ),
-      // Kitchen
-      Device(
-        id: 'kt_light_1',
-        name: 'Kitchen Light',
-        type: ApplianceType.light,
-        roomId: '3',
-        isOn: false,
-        intensity: 100,
-      ),
-      Device(
-        id: 'kt_socket_1',
-        name: 'Refrigerator',
-        type: ApplianceType.socket,
-        roomId: '3',
-        isOn: true,
-      ),
-      // Bathroom
-      Device(
-        id: 'bt_light_1',
-        name: 'Bathroom Light',
-        type: ApplianceType.light,
-        roomId: '4',
-        isOn: false,
-        intensity: 90,
-      ),
-    ];
+  // Save data to SharedPreferences
+  Future<void> _saveData() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('rooms', json.encode(_rooms.map((r) => r.toJson()).toList()));
+      await prefs.setString('devices', json.encode(_devices.map((d) => d.toJson()).toList()));
+      await prefs.setBool('setup_complete', _isSetupComplete);
+    } catch (e) {
+      debugPrint('Error saving data: $e');
+    }
+  }
+
+  // Mark setup as complete
+  Future<void> completeSetup() async {
+    _isSetupComplete = true;
+    await _saveData();
+    notifyListeners();
+  }
+
+  // Add a new room
+  Future<void> addRoom(Room room) async {
+    _rooms.add(room);
+    await _saveData();
+    notifyListeners();
+  }
+
+  // Update a room
+  Future<void> updateRoom(Room room) async {
+    final index = _rooms.indexWhere((r) => r.id == room.id);
+    if (index != -1) {
+      _rooms[index] = room;
+      await _saveData();
+      notifyListeners();
+    }
+  }
+
+  // Delete a room and its devices
+  Future<void> deleteRoom(String roomId) async {
+    _rooms.removeWhere((r) => r.id == roomId);
+    _devices.removeWhere((d) => d.roomId == roomId);
+    await _saveData();
+    notifyListeners();
+  }
+
+  // Add a new device
+  Future<void> addDevice(Device device) async {
+    _devices.add(device);
+    await _saveData();
+    notifyListeners();
+  }
+
+  // Update a device
+  Future<void> updateDevice(Device device) async {
+    final index = _devices.indexWhere((d) => d.id == device.id);
+    if (index != -1) {
+      _devices[index] = device;
+      await _saveData();
+      notifyListeners();
+    }
+  }
+
+  // Delete a device
+  Future<void> deleteDevice(String deviceId) async {
+    _devices.removeWhere((d) => d.id == deviceId);
+    await _saveData();
     notifyListeners();
   }
 
@@ -125,6 +133,7 @@ class DataService extends ChangeNotifier {
       final index = _devices.indexWhere((d) => d.id == device.id);
       if (index != -1) {
         _devices[index].isOn = newState;
+        await _saveData();
         notifyListeners();
       }
     } else {
@@ -133,6 +142,7 @@ class DataService extends ChangeNotifier {
       final index = _devices.indexWhere((d) => d.id == device.id);
       if (index != -1) {
         _devices[index].isOn = newState;
+        await _saveData();
         notifyListeners();
       }
     }
@@ -148,6 +158,7 @@ class DataService extends ChangeNotifier {
       final index = _devices.indexWhere((d) => d.id == device.id);
       if (index != -1) {
         _devices[index].intensity = intensity;
+        await _saveData();
         notifyListeners();
       }
     } else {
@@ -156,6 +167,7 @@ class DataService extends ChangeNotifier {
       final index = _devices.indexWhere((d) => d.id == device.id);
       if (index != -1) {
         _devices[index].intensity = intensity;
+        await _saveData();
         notifyListeners();
       }
     }
@@ -170,6 +182,7 @@ class DataService extends ChangeNotifier {
     
     if (devices != null) {
       _devices = devices;
+      await _saveData();
       _error = null;
     } else {
       _error = 'Failed to sync with ESP32';

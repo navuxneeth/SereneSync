@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'services/data_service.dart';
+import 'services/theme_service.dart';
 import 'screens/home_screen.dart';
+import 'screens/welcome_screen.dart';
 
 void main() {
   runApp(const SereneSync());
@@ -12,29 +14,24 @@ class SereneSync extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => DataService(),
-      child: MaterialApp(
-        title: 'SereneSync',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-            brightness: Brightness.light,
-          ),
-          useMaterial3: true,
-          cardTheme: CardThemeData(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          appBarTheme: const AppBarTheme(
-            centerTitle: false,
-            elevation: 0,
-          ),
-        ),
-        home: const HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => DataService()),
+        ChangeNotifierProvider(create: (context) => ThemeService()),
+      ],
+      child: Consumer2<DataService, ThemeService>(
+        builder: (context, dataService, themeService, child) {
+          return MaterialApp(
+            title: 'SereneSync',
+            debugShowCheckedModeBanner: false,
+            theme: themeService.lightTheme,
+            darkTheme: themeService.darkTheme,
+            themeMode: themeService.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            home: dataService.isSetupComplete
+                ? const HomeScreen()
+                : const WelcomeScreen(),
+          );
+        },
       ),
     );
   }
