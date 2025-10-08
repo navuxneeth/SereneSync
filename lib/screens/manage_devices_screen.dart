@@ -183,7 +183,7 @@ class ManageDevicesScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: selectedRoomId,
+                  initialValue: selectedRoomId,
                   decoration: const InputDecoration(
                     labelText: 'Room',
                     border: OutlineInputBorder(),
@@ -303,7 +303,7 @@ class ManageDevicesScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: selectedRoomId,
+                  initialValue: selectedRoomId,
                   decoration: const InputDecoration(
                     labelText: 'Room',
                     border: OutlineInputBorder(),

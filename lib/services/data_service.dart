@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../models/room.dart';
 import '../models/device.dart';
-import '../models/appliance_type.dart';
 import 'esp32_service.dart';
 
 class DataService extends ChangeNotifier {
